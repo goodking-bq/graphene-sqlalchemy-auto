@@ -2,11 +2,16 @@ import graphene
 import sqlalchemy
 from graphene.types.utils import yank_fields_from_attrs
 from graphene_sqlalchemy import SQLAlchemyObjectType
-from graphene_sqlalchemy.converter import Dynamic, default_connection_field_factory
+from graphene_sqlalchemy.converter import Dynamic
 from graphene_sqlalchemy.registry import get_global_registry
 from graphene_sqlalchemy.types import construct_fields
 
-
+try:
+    from graphene_sqlalchemy.converter import default_connection_field_factory
+except:
+    from graphene_sqlalchemy.types import default_connection_field_factory
+finally:
+    pass
 class DatabaseId(graphene.Interface):
     """
     auto add database id as dbId
@@ -48,7 +53,6 @@ class SQLAlchemyInputObjectType(graphene.InputObjectType):
                 registry=registry,
                 only_fields=tuple(only_fields),
                 exclude_fields=tuple(exclude_fields + auto_exclude),
-                batching=True,
                 connection_field_factory=default_connection_field_factory,
             ),
             _as=graphene.Field,
