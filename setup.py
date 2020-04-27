@@ -18,7 +18,7 @@ requirements = [
 ]
 setuptools.setup(
     name="graphene-sqlalchemy-auto",  # Replace with your own username
-    version="0.1.0",
+    version=version,
     author="golsee",
     author_email="z.shj726@gmail.com",
     description="generate default graphene schema from sqlalchemy model base on graphene-sqlalchemy",

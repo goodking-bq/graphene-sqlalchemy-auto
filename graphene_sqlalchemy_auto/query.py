@@ -85,7 +85,6 @@ class QueryObjectType(graphene.ObjectType):
             cls, declarative_base, exclude_models=None, _meta=None, **options
     ):
         """
-
         :param declarative_base: sqlalchemy's base
         :param exclude_models: exclude models
         :param _meta:
@@ -101,7 +100,8 @@ class QueryObjectType(graphene.ObjectType):
         models = [cls for cls in declarative_base._decl_class_registry.values() if
                   isinstance(cls, type) and issubclass(cls, declarative_base)]  # all models
         for model_obj in models:
-            # if isinstance(model_obj, DefaultMeta):
+            if model_obj.__name__ in exclude_models:
+                continue
             fields.update(
                 {
                     decapitalize(model_obj.__name__): graphene.relay.Node.Field(
