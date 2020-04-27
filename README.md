@@ -1,4 +1,4 @@
-generate default graphene schema from sqlalchemy model base on graphene-sqlalchemy
+generate default graphene schema from sqlalchemy model base on [graphene-sqlalchemy](https://github.com/graphql-python/graphene-sqlalchemy.git)
 
 # Installation
 
@@ -32,4 +32,4 @@ schema = graphene.Schema(query=Query, mutation=Mutation)
 
 ```
 now you can use schema everywhere.some like flask,fastapi
-also more example you can find in [example]()
+also more example you can find in [example](https://github.com/goodking-bq/graphene-sqlalchemy-auto/tree/master/example)
