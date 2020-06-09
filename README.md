@@ -1,5 +1,6 @@
 ![](https://github.com/goodking-bq/graphene-sqlalchemy-auto/workflows/python-publish.yml/badge.svg)
 
+
 generate default graphene schema from sqlalchemy model base on [graphene-sqlalchemy](https://github.com/graphql-python/graphene-sqlalchemy.git)
 
 # Installation
