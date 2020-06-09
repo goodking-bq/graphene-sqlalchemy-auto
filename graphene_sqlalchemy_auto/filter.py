@@ -5,17 +5,18 @@ def filter_query(query, model, filters):
     """make query
 
     Arguments:
-        query {query} -- sqlalchemy query
+        query {query} -- sqlalchemyquery
         model {model} -- model
-        filters {list} -- filter list,like [{key: a,val:a,op:aa}]
+        filters {list} -- filter list,like [{key: a,val:a,op:aa}] or {key:val}
 
     Returns:
         query -- sqlalchemy query
-    examples:
-        filters: {"column":id,"op":"==","val":1}
-        filters: {"column1":1,"column1":2}
-        filters: [{"column":id,"op":"==","val":1},{"column2":id,"op":"==","val":1}]
     """
+    if isinstance(filters, (dict,)):
+        conditions = []
+        conditions = construct_conditions(conditions, filters, model)
+        query = query.filter(*conditions)
+        return query
     for _filter in filters:
         conditions = []
         if isinstance(_filter, (list,)):
@@ -32,13 +33,18 @@ def filter_query(query, model, filters):
 def construct_conditions(conditions, _filter, model):
     """
     """
-    c = getattr(model, _filter.get("key"))
-    v = _filter.get("val")
     op = _filter.get("op")
-    if not op:  # if not op?,default  is `==` like {"column1":1,"column2":2}
-        for key in _filter:
-            conditions.append(key == _filter[key])
+    if not op:
+        for column_name in _filter:
+            v = _filter[column_name]
+            c = getattr(model, column_name)
+            conditions.append(c == v)
         return conditions
+    column_name = _filter.get("key")
+    v = _filter.get("val")
+    c = getattr(model, column_name)
+    if not c or not op or not v:
+        pass
     if op == "==":
         conditions.append(c == v)
     if op == "!=":
@@ -61,4 +67,6 @@ def construct_conditions(conditions, _filter, model):
         conditions.append(c.in_(v))
     if op == "notin":
         conditions.append(not_(c.in_(v)))
+    if op == "any":
+        conditions.append(c.any(**v))  # v is like {"column_name","2"}
     return conditions

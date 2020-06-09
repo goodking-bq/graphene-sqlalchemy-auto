@@ -136,7 +136,7 @@ postgresql_psycopg2cffi = ["psycopg2cffi"]
 pymysql = ["pymysql"]
 
 [metadata]
-content-hash = "35cfe83c6e1aabb34af39c7513d53da06b3b5a8620f549fcd27d1d0f3cd5c588"
+content-hash = "032685491ac2c83302cc793e62ca5726d7896dff67beed0a2f6b90746ab88b5b"
 python-versions = "^3.6"
 
 [metadata.files]
