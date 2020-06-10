@@ -1,4 +1,4 @@
-![](https://github.com/goodking-bq/graphene-sqlalchemy-auto/workflows/python-publish.yml/badge.svg)
+![publish](https://github.com/goodking-bq/graphene-sqlalchemy-auto/workflows/Upload%20Python%20Package/badge.svg)
 
 
 generate default graphene schema from sqlalchemy model base on [graphene-sqlalchemy](https://github.com/graphql-python/graphene-sqlalchemy.git)
