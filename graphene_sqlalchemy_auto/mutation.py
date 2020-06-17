@@ -36,7 +36,7 @@ class SQLAlchemyMutationOptions(ObjectTypeOptions):
     arguments = None  # type: Dict[str, Argument]
     output = None  # type: Type[ObjectType]
     resolver = None  # type: Callable
-
+    session = None
 
 class SQLAlchemyMutation(graphene.Mutation):
     @classmethod
@@ -60,6 +60,7 @@ class SQLAlchemyMutation(graphene.Mutation):
         meta.create = create
         meta.model = model
         meta.delete = delete
+        cls._session = session
         _out_name = "Edit"
         if meta.create is True:
             _out_name = "Create"
@@ -88,7 +89,7 @@ class SQLAlchemyMutation(graphene.Mutation):
         cls.ok = graphene.Boolean(description="成功？")
         cls.message = graphene.String(description="更多信息")
         super(SQLAlchemyMutation, cls).__init_subclass_with_meta__(
-            _meta=meta, _session=session, arguments=arguments, **options
+            _meta=meta, arguments=arguments, **options
         )
 
     @classmethod
