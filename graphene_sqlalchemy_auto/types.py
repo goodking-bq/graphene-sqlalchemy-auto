@@ -54,6 +54,7 @@ class SQLAlchemyInputObjectType(graphene.InputObjectType):
                 only_fields=tuple(only_fields),
                 exclude_fields=tuple(exclude_fields + auto_exclude),
                 connection_field_factory=default_connection_field_factory,
+                batching=True,
             ),
             _as=graphene.Field,
         )
