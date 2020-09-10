@@ -1,17 +1,17 @@
-from sqlalchemy import Column, ForeignKey, Integer, String, UniqueConstraint, Text, DateTime
-from sqlalchemy import func
+from sqlalchemy import *
 from sqlalchemy.ext.associationproxy import association_proxy
 from sqlalchemy.orm import relationship
 
-from .database import Base
+from database import Base
 
 
-class UserRole(Base):
-    __tablename__="user_role"
-    id = Column(Integer, primary_key=True)
-    user_id= Column("user_id", Integer, ForeignKey("user.id"))
-    role_id=Column("role_id", Integer, ForeignKey("role.id"))
-    UniqueConstraint("user_id", "role_id")
+user_role = Table(
+    "user_role", Base.metadata,
+    Column("user_id", Integer, ForeignKey(
+        "user.id"), primary_key=True),
+    Column("role_id", Integer, ForeignKey("role.id"), primary_key=True)
+)
+
 
 class User(Base):
     __tablename__ = "user"
@@ -20,14 +20,12 @@ class User(Base):
     password = Column(String(100), nullable=False)
     roles = relationship("Role", secondary="user_role",
                          back_populates="users")
-    role_names = key_ids = association_proxy("roles", "name")
 
 
 class Role(Base):
     __tablename__ = "role"
     id = Column(Integer, primary_key=True)
     name = Column(String(255))
-
     users = relationship("User", secondary="user_role",
                          back_populates="roles")
 

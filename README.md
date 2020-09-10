@@ -44,6 +44,72 @@ schema = graphene.Schema(query=Query, mutation=Mutation)
 
 ```
 
+# Query example
+
+just equal
+```gql
+query{
+  userList(filters:{name: "a"}){
+    edges{
+      node{
+        name
+        id
+        dbId
+      }
+    }
+  }
+}
+```
+OR 
+support more expr
+```gql
+query{
+  userList(filters:[{key: "name",op: "==", val: "a"}]){
+    edges{
+      node{
+        name
+        id
+        dbId
+      }
+    }
+  }
+}
+```
+
+## op supports:
+- *==* 
+- *!=* 
+- *>=* 
+- *<=* 
+- *>* 
+- *<* 
+- *starts* 
+- *ends* 
+- *contains* 
+- *in* 
+- *notin* 
+- *any* 
+
+
+# Mutation example
+```gql
+ createUser(input:{name: "cc",password: "dd"}){
+    ok
+    output{
+      id
+      dbId
+      name
+    }
+    message
+  }
+```
+
+## about Schema names
+
+- model.__class__.name.lower : query a data by id
+- model.__class__.name.decapitalize[first lower]+"List": query list  
+- create|update|delete+model.__class__.name : mutation data
+
 about many-to-many mutation
 
 >now you can use schema everywhere.some like flask,fastapi

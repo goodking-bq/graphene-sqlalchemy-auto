@@ -92,7 +92,7 @@ class SQLAlchemyObjectTypes(object):
         if name in self.all_types:
             return self.all_types.get(name)
         else:
-            if hasattr(model, "id"):
+            if hasattr(model, "id") and not hasattr(model, "db_id"):
                 model.db_id = model.id
             t = SQLAlchemyObjectType.create_type(
                 name, model=model, interfaces=(graphene.relay.Node, DatabaseId)

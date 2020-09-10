@@ -31,7 +31,7 @@ description = "Graphene SQLAlchemy integration"
 name = "graphene-sqlalchemy"
 optional = false
 python-versions = "*"
-version = "2.3.0.dev1"
+version = "2.3.0"
 
 [package.dependencies]
 SQLAlchemy = ">=1.2,<2"
@@ -136,7 +136,7 @@ postgresql_psycopg2cffi = ["psycopg2cffi"]
 pymysql = ["pymysql"]
 
 [metadata]
-content-hash = "032685491ac2c83302cc793e62ca5726d7896dff67beed0a2f6b90746ab88b5b"
+content-hash = "5ddd6bef79e9f7f7bb48e2efdc3c28fe18166537924acf88d2c6a74991999255"
 python-versions = "^3.6"
 
 [metadata.files]
@@ -149,8 +149,8 @@ graphene = [
     {file = "graphene-2.1.8.tar.gz", hash = "sha256:2cbe6d4ef15cfc7b7805e0760a0e5b80747161ce1b0f990dfdc0d2cf497c12f9"},
 ]
 graphene-sqlalchemy = [
-    {file = "graphene-sqlalchemy-2.3.0.dev1.tar.gz", hash = "sha256:b6d63c14aaaf7bff976dbce091ed8096dc483d9ce9aeb94b6543a1ade96c3327"},
-    {file = "graphene_sqlalchemy-2.3.0.dev1-py2.py3-none-any.whl", hash = "sha256:84ebb555538cf661cc2030a48ba16160c333b07c074658b912da699f0fc34d8c"},
+    {file = "graphene-sqlalchemy-2.3.0.tar.gz", hash = "sha256:2b1a9cf4ed44aec78140605f38061a79b51be5902400d10c3d19b2cf64046215"},
+    {file = "graphene_sqlalchemy-2.3.0-py2.py3-none-any.whl", hash = "sha256:97ed52bc0d01d757df50d25b5bdd490a2327778d41223d4e084d38a239925e8e"},
 ]
 graphql-core = [
     {file = "graphql-core-2.3.1.tar.gz", hash = "sha256:74a8f509ae8c4a58271f5d6b46d5c75b4aed116821ab62dea252d8041bfe057a"},
