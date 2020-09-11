@@ -128,3 +128,7 @@ dmypy.json
 # Pyre type checker
 .pyre/
 .idea/
+dist
+.DS_Store
+.vscode/settings.json
+example/fastapi_app/.vscode/settings.json
