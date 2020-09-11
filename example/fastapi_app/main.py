@@ -20,7 +20,7 @@ class Query(QueryObjectType):
 class Mutation(MutationObjectType):
     class Meta:
         declarative_base = Base
-        session = SessionLocal.session_factory()
+        session = SessionLocal()
 
 
 schema = graphene.Schema(query=Query, mutation=Mutation)

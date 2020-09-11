@@ -116,16 +116,13 @@ class SQLAlchemyMutation(graphene.Mutation):
                     if key in relationships:
                         if getattr(model, key) is None:
                             # instantiate class of the same type as the relationship target
-                            setattr(model, key, relationships[key].mapper.entity())
+                            setattr(model, key, relationships[key].mapper.entity)
                             set_model_attributes(getattr(model, key), value)
                         else:  # many to many
-                            _value = relationships[key].mapper.entity()
-                            objs = []
-                            for v in value:
-                                obj = relationships[key].mapper.entity()
-                                obj = obj.query.get(from_global_id(v)[1])
-                                objs.append(obj)
-                            setattr(model, key, objs)
+                            obj = relationships[key].mapper.entity
+                            ids=[from_global_id(v)[1]  for v in value]
+                            objects = session.query(obj).filter(obj.id.in_(ids)).all()
+                            setattr(model, key, objects)
                     else:
                         setattr(model, key, value)
 
