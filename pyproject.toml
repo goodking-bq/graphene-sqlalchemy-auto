@@ -16,6 +16,7 @@ license = "MIT"
 
 [tool.poetry.dependencies]
 python = "^3.6"
+graphene = "^2.0"
 graphene-sqlalchemy = "^2.3.0"
 
 [tool.poetry.dev-dependencies]
