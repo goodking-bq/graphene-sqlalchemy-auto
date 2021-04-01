@@ -181,17 +181,18 @@ class MutationObjectType(graphene.ObjectType):
             name = "%s%s" % (action, obj._meta.model.__name__)
             include_object_names.append(name)
             fields[name] = obj.Field()
-        models = [cls for cls in declarative_base._decl_class_registry.values() if
-                  isinstance(cls, type) and issubclass(cls, declarative_base)]
-        for model_obj in models:
-            model_name = model_obj.__name__
-            # if isinstance(model_obj, DefaultMeta):
-            if "create%s" % model_name not in include_object_names:
-                fields.update({"create%s" % model_name: model_create(model_obj, session).Field()})
-            if "update%s" % model_name not in include_object_names:
-                fields.update({"update%s" % model_name: model_update(model_obj, session).Field()})
-            if "delete%s" % model_name not in include_object_names:
-                fields.update({"delete%s" % model_name: model_delete(model_obj, session).Field()})
+
+        for base in declarative_base:  # declarative_base can be mutil
+            for model in base.registry.mapper:
+                model_obj = model.class_
+                model_name = model_obj.__name__
+                # if isinstance(model_obj, DefaultMeta):
+                if "create%s" % model_name not in include_object_names:
+                    fields.update({"create%s" % model_name: model_create(model_obj, session).Field()})
+                if "update%s" % model_name not in include_object_names:
+                    fields.update({"update%s" % model_name: model_update(model_obj, session).Field()})
+                if "delete%s" % model_name not in include_object_names:
+                    fields.update({"delete%s" % model_name: model_delete(model_obj, session).Field()})
         if _meta.fields:
             _meta.fields.update(fields)
         else:

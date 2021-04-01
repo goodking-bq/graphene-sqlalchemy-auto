@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "graphene-sqlalchemy-auto"
-version = "1.0.0"
+version = "1.1.0"
 homepage = "https://github.com/goodking-bq/graphene-sqlalchemy-auto"
 repository = "https://github.com/goodking-bq/graphene-sqlalchemy-auto.git"
 documentation = "https://github.com/goodking-bq/graphene-sqlalchemy-auto"
@@ -15,9 +15,10 @@ license = "MIT"
 
 
 [tool.poetry.dependencies]
-python = "^3.6"
+python = "^3.8"
 graphene = "^2.0"
 graphene-sqlalchemy = "^2.3.0"
+SQLAlchemy = "^1.4"
 
 [tool.poetry.dev-dependencies]
 black = {version = "^20.8b1", allow-prereleases = true}

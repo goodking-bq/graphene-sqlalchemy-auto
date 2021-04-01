@@ -97,19 +97,19 @@ class QueryObjectType(graphene.ObjectType):
             _meta = ObjectTypeOptions(cls)
         fields = OrderedDict()
         fields["node"] = graphene.relay.Node.Field()
-        models = [cls for cls in declarative_base._decl_class_registry.values() if
-                  isinstance(cls, type) and issubclass(cls, declarative_base)]  # all models
-        for model_obj in models:
-            if model_obj.__name__ in exclude_models:
-                continue
-            fields.update(
-                {
-                    decapitalize(model_obj.__name__): graphene.relay.Node.Field(
-                        SQLAlchemyObjectTypes().get(model_obj)
-                    ),
-                    "%s_list" % decapitalize(model_obj.__name__): model_connection(model_obj),
-                }
-            )
+        for base in declarative_base:  # declarative_base can be mutil
+            for model in base.registry.mapper:
+                model_obj = model.class_
+                if model_obj.__name__ in exclude_models:
+                    continue
+                fields.update(
+                    {
+                        decapitalize(model_obj.__name__): graphene.relay.Node.Field(
+                            SQLAlchemyObjectTypes().get(model_obj)
+                        ),
+                        "%s_list" % decapitalize(model_obj.__name__): model_connection(model_obj),
+                    }
+                )
         if _meta.fields:
             _meta.fields.update(fields)
         else:

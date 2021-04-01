@@ -14,6 +14,7 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 requirements = [
     # To keep things simple, we only support newer versions of Graphene
+    "sqlalchemy>=1.4",
     "graphene-sqlalchemy>=2.3.0",
 ]
 setuptools.setup(
@@ -36,5 +37,5 @@ setuptools.setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
-    python_requires='>=3.6',
+    python_requires='>=3.8',
 )
