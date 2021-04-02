@@ -97,6 +97,8 @@ class QueryObjectType(graphene.ObjectType):
             _meta = ObjectTypeOptions(cls)
         fields = OrderedDict()
         fields["node"] = graphene.relay.Node.Field()
+        if not isinstance(declarative_base, list):
+            declarative_base = [declarative_base]
         for base in declarative_base:  # declarative_base can be mutil
             for model in base.registry.mapper:
                 model_obj = model.class_

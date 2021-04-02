@@ -181,7 +181,8 @@ class MutationObjectType(graphene.ObjectType):
             name = "%s%s" % (action, obj._meta.model.__name__)
             include_object_names.append(name)
             fields[name] = obj.Field()
-
+        if not isinstance(declarative_base, list):
+            declarative_base = [declarative_base]
         for base in declarative_base:  # declarative_base can be mutil
             for model in base.registry.mapper:
                 model_obj = model.class_
