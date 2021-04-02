@@ -100,7 +100,7 @@ class QueryObjectType(graphene.ObjectType):
         if not isinstance(declarative_base, list):
             declarative_base = [declarative_base]
         for base in declarative_base:  # declarative_base can be mutil
-            for model in base.registry.mapper:
+            for model in base.registry.mappers:
                 model_obj = model.class_
                 if model_obj.__name__ in exclude_models:
                     continue
