@@ -12,6 +12,8 @@ except:
     from graphene_sqlalchemy.types import default_connection_field_factory
 finally:
     pass
+
+
 class DatabaseId(graphene.Interface):
     """
     auto add database id as dbId
@@ -19,11 +21,18 @@ class DatabaseId(graphene.Interface):
     db_id = graphene.Int(description="real database id")
 
 
+class DatabaseIdString(graphene.Interface):
+    """
+    auto add database id as dbId for string
+    """
+    db_id = graphene.String(description="real database id")
+
+
 class SQLAlchemyInputObjectType(graphene.InputObjectType):
     """
     auto generate graphene input object types
     """
-
+    
     @classmethod
     def __init_subclass_with_meta__(
             cls, model=None, registry=None, only_fields=None, exclude_fields=None, **options
@@ -92,10 +101,13 @@ class SQLAlchemyObjectTypes(object):
         if name in self.all_types:
             return self.all_types.get(name)
         else:
+            db_id = DatabaseId
             if hasattr(model, "id") and not hasattr(model, "db_id"):
                 model.db_id = model.id
+                if isinstance(model.id.type, sqlalchemy.String):
+                    db_id = DatabaseIdString
             t = SQLAlchemyObjectType.create_type(
-                name, model=model, interfaces=(graphene.relay.Node, DatabaseId)
+                name, model=model, interfaces=(graphene.relay.Node, db_id)
             )
             self.all_types[name] = t
             return t
